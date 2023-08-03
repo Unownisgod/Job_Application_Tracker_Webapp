@@ -55,9 +55,12 @@
                 <option>Accepted 🎉</option>
                 <span asp-validation-for="state" class="text-danger"></span>
             </div>
+            <span class="" style="display: none;">
+                <input asp-for="state_change_date" type="date" class="form-control mb-3 invisible" value="@DateTime.Now.ToString("yyyy-MM-dd")" hidden />
+            </span>
             <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="mt-2 btn btn-primary" />
+                <input type="submit" value="Create" class="mt-2 btn btn-primary" onclick="saveLastStateDate()" />
                 <a asp-action="Index" class="btn btn-danger mt-2 ms-2">Back to List</a>
 
             </div>
@@ -97,8 +100,9 @@
                 stars[i].style.color = 'gold';
             } 
         }
-</script>
-<script>
+    function save_last_state_date() {
+
+    }
 </script>
 @section Scripts {
     @{

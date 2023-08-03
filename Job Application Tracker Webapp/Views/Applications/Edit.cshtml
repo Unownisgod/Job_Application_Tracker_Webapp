@@ -57,20 +57,25 @@
                 <div class="mb-5">
                 <select asp-for="state"  class="form-control" />
                 <option selected disabled hidden>Choose one option</option>
-                <option>Waiting for response</option>
-                <option>Waiting for interview</option>
-                <option>Interview failed</option>
-                <option>Interview sucessful</option>
-                <option>Rejected</option>
-                <option>Accepted 🎉</option>                
-                <span asp-validation-for="state" class="text-danger"></span>
+                    <option selected="@(Model.state == "Waiting for response")">Waiting for response</option>
+                    <option selected="@(Model.state == "Waiting for interview")">Waiting for interview</option>
+                    <option selected="@(Model.state == "Interview failed")">Interview failed</option>
+                    <option selected="@(Model.state == "Interview successful")">Interview successful</option>
+                    <option selected="@(Model.state == "Rejected")">Rejected</option>
+                    <option selected="@(Model.state == "Accepted 🎉")">Accepted 🎉</option>
+                    <span asp-validation-for="state" class="text-danger"></span>
                 </div>
             </div>
+            <span class="" style="display: none;">
+                <input asp-for="state_change_date" type="date" class="form-control mb-3 invisible" value="@DateTime.Now.ToString("yyyy-MM-dd")" hidden />
+            </span>
+
         </form>
             <div class="form-group mt-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
                 <a asp-action="Index" class="btn btn-danger ms-2">Back to List</a>
             </div>
+
     </div>
 </div>
 

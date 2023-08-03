@@ -35,7 +35,13 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="align-middle">
+            <tr class="@(item.state.Contains("Accepted") ? "table-success" : 
+            (item.state.Contains("Rejected") ? "table-danger" : 
+            (item.state.Contains("Interview failed") ? "table-warning" :
+            (item.state.Contains("Interview sucessful") ? "table-info" :
+            (item.state.Contains("Waiting for response") ? "" :
+            (item.state.Contains(" Waiting for interview") ? "table-dark" :"")
+            ))))) align-middle">
                 <td>
                     @Html.DisplayFor(modelItem => item.position)
                 </td>
