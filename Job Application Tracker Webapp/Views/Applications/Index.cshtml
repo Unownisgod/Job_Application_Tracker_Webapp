@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Job_Aplication_Tracker.Models.Application>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<table class="table table-hover table-light">
+    <thead>
+        <tr>
+            <th>
+                Position
+            </th>
+            <th>
+                Company
+            </th>
+            <th>
+                Confidence
+            </th>
+            <th>
+                Application date
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Last State Change
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="align-middle">
+                <td>
+                    @Html.DisplayFor(modelItem => item.position)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.enterprise)
+                </td>
+                <td width="150px">
+                    @for (int i=0; i < item.confidence; i++)
+                    {
+                        <span class="star" style="color: gold">&#9733;</span>
+                    }
+                    @for (int i = item.confidence; i < 5; i++)
+                    {
+                        <span class="star" style="color: gray">&#9733;</span>
+                    }
+                </td>
+                <td>
+                    @item.application_date.Date.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.state)
+                </td>
+                <td>
+                    @item.state_change_date.Date.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    <a href="@Html.DisplayFor(modelItem => item.link)" class="btn btn-primary p-1">Visit</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.id " class="btn btn-outline-primary p-0" style="width:25%; height: 100%; width: 26px" >&#x1F50D;</a>
+                    <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-outline-warning p-0 " style="width:25%; height: 100%; width: 26px">&#9998;</a>
+                    <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-outline-danger p-0" style="width:25%; height: 100%; width: 26px">&#128465;</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+    <p>
+        <a asp-action="Create" class=" btn btn-primary"><b>+</b></a>
+    </p>

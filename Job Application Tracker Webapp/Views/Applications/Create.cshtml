@@ -1,0 +1,107 @@
+﻿@model Job_Aplication_Tracker.Models.Application
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>New Application</h1>
+
+<hr class="mb-5" />
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="position" class="control-label">Postion</label>
+                <input asp-for="position" class="form-control mb-3" />
+                <span asp-validation-for="position" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="enterprise" class="control-label">Company</label>
+                <input asp-for="enterprise" class="form-control mb-3" />
+                <span asp-validation-for="enterprise" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="confidence" class="control-label">Confidence</label>
+                <p>
+                    <input asp-for="confidence" type="hidden" name="confidence" id="confidence" value="" class="mb-3" />
+                    <span class="star" onclick="changeValue(this);" onmouseover="changeColor(this);" onmouseout="changeColorOut(this)">&#9733;</span>
+                    <span class="star" onclick="changeValue(this);" onmouseover="changeColor(this);" onmouseout="changeColorOut(this)">&#9733;</span>
+                    <span class="star" onclick="changeValue(this);" onmouseover="changeColor(this);" onmouseout="changeColorOut(this)">&#9733;</span>
+                    <span class="star" onclick="changeValue(this);" onmouseover="changeColor(this);" onmouseout="changeColorOut(this)">&#9733;</span>
+                    <span class="star" onclick="changeValue(this);" onmouseover="changeColor(this);" onmouseout="changeColorOut(this)">&#9733;</span>
+                </p>
+                <span asp-validation-for="confidence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="link" class="control-label">Link</label>
+                <input asp-for="link" class="form-control mb-3" />
+                <span asp-validation-for="link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="application_date" class="control-labe" id="date">Application date</label>
+                <input asp-for="application_date" type="date" class="form-control mb-3" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="application_date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="state" class="control-label">Status</label>
+                <select asp-for="state" class="form-control mb-3" />
+                <option value="" selected disabled hidden>Choose one option</option>
+                <option>Waiting for response</option>
+                <option>Waiting for interview</option>
+                <option>Interview failed</option>
+                <option>Interview sucessful</option>
+                <option>Rejected</option>
+                <option>Accepted 🎉</option>
+                <span asp-validation-for="state" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="mt-2 btn btn-primary" />
+                <a asp-action="Index" class="btn btn-danger mt-2 ms-2">Back to List</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function changeColor(el) {
+        var stars = document.querySelectorAll('.star');
+        for (var i = 0; i < stars.length; i++) {
+            if (stars[i] == el) {
+                stars[i].style.color = 'gold';
+
+            } else if (stars[i].compareDocumentPosition(el) & Node.DOCUMENT_POSITION_PRECEDING) {
+                stars[i].style.color = 'gray';
+            } else {
+                stars[i].style.color = 'gold';
+            }
+        }
+    }
+    function changeValue(el){
+        var stars = document.querySelectorAll('.star');
+        for (var i = 0; i < stars.length; i++) {
+            if (stars[i] == el) {
+                document.getElementById('confidence').value = i + 1;
+            }
+        }
+    }
+    function changeColorOut(el) {
+        var stars = document.querySelectorAll('.star');
+        for (var i = 0; i < stars.length; i++) {
+            if (i >= document.getElementById('confidence').value) {
+                stars[i].style.color = 'gray';
+
+            } else 
+                stars[i].style.color = 'gold';
+            } 
+        }
+</script>
+<script>
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
