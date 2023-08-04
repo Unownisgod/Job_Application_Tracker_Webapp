@@ -10,7 +10,7 @@
         public DateTime application_date { get; set; }
         public string state { get; set; } //waiting for response, waiting for interview, successful interview...
         public DateTime state_change_date { get; set; }
-        public int user_id { get; set; }
+        public string user_id { get; set; }
 
         public Application()
         {

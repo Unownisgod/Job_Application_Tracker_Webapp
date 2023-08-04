@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Job_Aplication_Tracker.Models;
 using Job_Application_Tracker_Webapp.Data;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Job_Application_Tracker_Webapp.Controllers
 {
@@ -24,21 +26,24 @@ namespace Job_Application_Tracker_Webapp.Controllers
         // GET: Applications
         public async Task<IActionResult> Index()
         {
-              return _context.Application != null ? 
-                          View(await _context.Application.ToListAsync()) :
-                          Problem("Entity set 'Job_Application_Tracker_WebappContext.Application'  is null.");
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var applications = _context.Application.Where(a => a.user_id == userId).ToList();
+            return View(applications);
         }
 
+
         // GET: Applications/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            if (id == null || _context.Application == null)
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var application = await _context.Application
-                .FirstOrDefaultAsync(m => m.id == id);
+            var application = _context.Application
+                .FirstOrDefault(m => m.id == id && m.user_id == userId);
             if (application == null)
             {
                 return NotFound();
@@ -50,8 +55,14 @@ namespace Job_Application_Tracker_Webapp.Controllers
         // GET: Applications/Create
         public IActionResult Create()
         {
-            return View();
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            string userId = claim.Value;
+            Application modelo = new Application();
+            modelo.user_id = userId;
+            return View(modelo);
         }
+
 
         // POST: Applications/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -70,18 +81,22 @@ namespace Job_Application_Tracker_Webapp.Controllers
         }
 
         // GET: Applications/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null || _context.Application == null)
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var application = await _context.Application.FindAsync(id);
+            var application = _context.Application
+                .FirstOrDefault(m => m.id == id && m.user_id == userId);
             if (application == null)
             {
                 return NotFound();
             }
+
             return View(application);
         }
 
@@ -127,9 +142,10 @@ namespace Job_Application_Tracker_Webapp.Controllers
             {
                 return NotFound();
             }
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var application = await _context.Application
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.id == id && m.user_id == userId);
             if (application == null)
             {
                 return NotFound();
@@ -143,6 +159,8 @@ namespace Job_Application_Tracker_Webapp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (_context.Application == null)
             {
                 return Problem("Entity set 'Job_Application_Tracker_WebappContext.Application'  is null.");

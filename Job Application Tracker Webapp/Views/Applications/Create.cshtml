@@ -5,8 +5,6 @@
 
     // En un controlador
     // En un controlador
-    System.Web.HttpContext.Current.User.Identity.Name.Name();
-
 }
 
 <h1>New Application</h1>
@@ -64,7 +62,7 @@
                 <input asp-for="state_change_date" type="date" class="form-control mb-3 invisible" value="@DateTime.Now.ToString("yyyy-MM-dd")" hidden />
             </span>
             <span class="" style="display: none;">
-                <input asp-for="user_id" type="text" class="form-control mb-3 invisible" value="" hidden />
+                <input asp-for="user_id" type="text" class="form-control mb-3 invisible" value="@Model.user_id" hidden />
             </span>
             <br />
             <div class="form-group">
