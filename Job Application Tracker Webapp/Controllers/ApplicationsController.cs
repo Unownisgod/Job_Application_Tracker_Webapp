@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Job_Aplication_Tracker.Models;
 using Job_Application_Tracker_Webapp.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Job_Application_Tracker_Webapp.Controllers
 {
+    [Authorize]
     public class ApplicationsController : Controller
     {
         private readonly Job_Application_Tracker_WebappContext _context;

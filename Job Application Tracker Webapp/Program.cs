@@ -1,9 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Job_Application_Tracker_Webapp.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Job_Application_Tracker_WebappContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Job_Application_Tracker_WebappContext") ?? throw new InvalidOperationException("Connection string 'Job_Application_Tracker_WebappContext' not found.")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<Job_Application_Tracker_WebappContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -22,8 +26,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
