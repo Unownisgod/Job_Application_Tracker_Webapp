@@ -48,7 +48,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.enterprise)
                 </td>
-                <td width="150px">
+                <td>
+                    <div class="d-inline-flex">
+
                     @for (int i=0; i < item.confidence; i++)
                     {
                         <span class="star" style="color: gold">&#9733;</span>
@@ -57,6 +59,7 @@
                     {
                         <span class="star" style="color: gray">&#9733;</span>
                     }
+                    </div>
                 </td>
                 <td>
                     @item.application_date.Date.ToString("dd/MM/yyyy")
