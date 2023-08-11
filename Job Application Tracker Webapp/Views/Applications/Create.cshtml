@@ -49,12 +49,12 @@
                 <label asp-for="state" class="control-label">Status</label>
                 <select asp-for="state" class="form-control mb-3" />
                 <option value="" selected disabled hidden>Choose one option</option>
-                <option>Waiting for response</option>
-                <option>Waiting for interview</option>
-                <option>Interview failed</option>
-                <option>Interview sucessful</option>
-                <option>Rejected</option>
-                <option>Accepted 🎉</option>
+                <option selected="@(Model.state == "Waiting for response")">Waiting for response</option>
+                <option selected="@(Model.state == "Waiting for interview")">Waiting for interview</option>
+                <option selected="@(Model.state == "Interview failed")">Interview failed</option>
+                <option selected="@(Model.state == "Interview successful")">Interview successful</option>
+                <option selected="@(Model.state == "Rejected")">Rejected</option>
+                <option selected="@(Model.state == "Accepted 🎉")">Accepted 🎉</option>
                 <span asp-validation-for="state" class="text-danger"></span>
             </div>
             <span class="" style="display: none;">
