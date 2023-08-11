@@ -4,6 +4,7 @@ using Job_Application_Tracker_Webapp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Job_Application_Tracker_Webapp.Migrations
 {
     [DbContext(typeof(Job_Application_Tracker_WebappContext))]
-    partial class Job_Application_Tracker_WebappContextModelSnapshot : ModelSnapshot
+    [Migration("20230811100821_Application")]
+    partial class Application
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -111,7 +111,11 @@ namespace Job_Application_Tracker_Webapp.Controllers
             {
                 return NotFound();
             }
-
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            string userId = claim.Value;
+            Application modelo = new Application();
+            modelo.user_id = userId;
             if (ModelState.IsValid)
             {
                 try

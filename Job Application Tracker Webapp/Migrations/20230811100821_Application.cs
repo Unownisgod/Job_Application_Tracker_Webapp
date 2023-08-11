@@ -22,7 +22,7 @@ namespace Job_Application_Tracker_Webapp.Migrations
                     application_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     state = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     state_change_date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    user_id = table.Column<int>(type: "int", nullable: false)
+                    user_id = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
